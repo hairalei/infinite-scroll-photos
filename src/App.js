@@ -68,36 +68,45 @@ function App() {
 
     setPage(1);
     setPhotos([]);
+    fetchImages();
   };
 
   return (
-    <main>
-      <section className="search">
-        <form className="search-form">
-          <input
-            type="text"
-            placeholder="search"
-            className="form-input
-          "
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
-          <button type="submit" className="submit-btn" onClick={handleSubmit}>
-            <FaSearch />
-          </button>
-        </form>
-      </section>
+    <>
+      <header className="header">
+        <a className="logo" onClick={() => window.location.reload()}>
+          PhotoStock
+        </a>
+      </header>
 
-      <section className="photos">
-        <div className="photos-center">
-          {error.err && <h2>{error.statusText}</h2>}
-          {photos.map((image) => {
-            return <Photo key={image.id} {...image} />;
-          })}
-        </div>
-        {loading && <h2 className="loading">Loading...</h2>}
-      </section>
-    </main>
+      <main>
+        <section className="search">
+          <form className="search-form">
+            <input
+              type="text"
+              placeholder="search"
+              className="form-input
+          "
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+            <button type="submit" className="submit-btn" onClick={handleSubmit}>
+              <FaSearch />
+            </button>
+          </form>
+        </section>
+
+        <section className="photos">
+          <div className="photos-center">
+            {error.err && <h2>{error.statusText}</h2>}
+            {photos.map((image) => {
+              return <Photo key={image.id} {...image} />;
+            })}
+          </div>
+          {loading && <h2 className="loading">Loading...</h2>}
+        </section>
+      </main>
+    </>
   );
 }
 

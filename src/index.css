@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap");
+
 /*
 =============== 
 Variables
@@ -121,6 +123,22 @@ p {
 /*  global classes */
 
 /* section */
+
+.header {
+  margin: 1rem auto;
+  max-width: var(--max-width);
+  width: 90vw;
+}
+
+.logo {
+  font-size: 3rem;
+  font-family: "Berkshire Swash", cursive;
+  font-weight: bold;
+  color: var(--clr-grey-2);
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
 .section {
   width: 90vw;
   margin: 0 auto;
@@ -139,7 +157,7 @@ Stock Photos
 ===============
 */
 .search {
-  padding: 5rem 0 0 0;
+  padding: 2rem 0 0 0;
   width: 90vw;
   max-width: var(--max-width);
   margin: 0 auto;
