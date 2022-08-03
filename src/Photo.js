@@ -1,7 +1,7 @@
 import React from "react";
 
 const Photo = ({
-  urls: { regular },
+  urls: { full, regular },
   alt_description,
   likes,
   user: {
@@ -12,7 +12,9 @@ const Photo = ({
 }) => {
   return (
     <article className="photo">
-      <img src={regular} alt={alt_description} />
+      <a href={full} target="_blank">
+        <img src={regular} alt={alt_description} />
+      </a>
       <div className="photo-info">
         <div>
           <h4>{name}</h4>
