@@ -11,6 +11,7 @@ function App() {
   const [photos, setPhotos] = useState([]);
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState("");
+  const [error, setError] = useState({ err: false, statusText: "" });
 
   const fetchImages = async () => {
     setLoading(true);
@@ -26,38 +27,47 @@ function App() {
       const res = await fetch(url);
       const data = await res.json();
 
+      if (!res.ok) {
+        throw Error(res.statusText);
+      }
+
       setPhotos((currData) =>
         query ? [...currData, ...data.results] : [...currData, ...data]
       );
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      console.log(error);
+      setError({ error: true, statusText: error });
+      console.log(error + "!!!!!!!!!!!!!");
     }
   };
 
   useEffect(() => {
     fetchImages();
+    // eslint-disable-next-line
   }, [page]);
 
   useEffect(() => {
     const event = window.addEventListener("scroll", (e) => {
       if (
         !loading &&
-        window.innerHeight + window.scrollY >= document.body.scrollHeight - 50 //allowance
+        window.innerHeight + window.scrollY >= document.body.scrollHeight - 5 //allowance
       ) {
         setPage((currPage) => currPage + 1);
       }
     });
 
     return () => window.removeEventListener("scroll", event);
+    // eslint-disable-next-line
   }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!query) return;
+
     setPage(1);
     setPhotos([]);
-    fetchImages();
   };
 
   return (
@@ -80,6 +90,7 @@ function App() {
 
       <section className="photos">
         <div className="photos-center">
+          {error.err && <h2>{error.statusText}</h2>}
           {photos.map((image) => {
             return <Photo key={image.id} {...image} />;
           })}
